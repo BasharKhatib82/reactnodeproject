@@ -1,0 +1,149 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.appClass {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1; /* מבטיח שהאזור המרכזי יתפרש על כל הגובה הנותר */
+  display: flex;
+  flex-direction: column; /* שמירה על פריסת טקסט נכונה */
+  direction: rtl; /* יישור מימין לשמאל */
+  background-color: rgb(244, 255, 207);
+  padding: 1rem; /* הוסף ריפוד אם תרצה */
+}
+
+.active-link {
+  color: rgb(252, 248, 0);
+  text-decoration: none;
+  padding: 0.5rem;
+  width: 7rem;
+  text-align: center;
+  background-color: #029722;
+  border-radius: 8px;
+}
+.inactive-link {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  padding: 0.5rem;
+  width: 7rem;
+  text-align: center;
+  background-color: #029722;
+  border-radius: 8px;
+}
+
+.view-button {
+  background-color: #029722b8;
+  padding: 0.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  width: 7rem;
+  margin: 0.5rem auto; /* ממרכז את הכפתור */
+  border-radius: 7px;
+  display: block; /* מבטיח שייראה ככפתור מלא */
+}
+
+.menu {
+  display: flex;
+  gap: 3rem;
+  font-size: large;
+  text-decoration: none;
+  width: 20;
+  padding-right: 2rem;
+}
+
+.header,
+.footer {
+  background-color: rgb(255, 228, 140);
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(43, 170, 0);
+}
+
+.footer {
+  background-color: rgb(255, 228, 140);
+  padding: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: auto; /* מבטיח שהפוטר יוצמד לתחתית */
+}
+.logo {
+  width: 100px;
+  padding-left: 3rem;
+}
+
+.leads-list {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Lucida Sans";
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0; /* ביטול רווחים חיצוניים */
+  padding: 0; /* ביטול רווחים פנימיים */
+}
+
+.lead {
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: hwb(47 82% 2%);
+  border: 0.5px solid;
+  padding: 1rem;
+  margin: 0.5rem;
+}
+.container {
+  flex-grow: 1;
+  width: 1024px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; /* יישור נכון של תוכן */
+  justify-content: center; /* ממרכז את התוכן אנכית */
+  align-items: center; /* ממרכז את התוכן אופקית */
+}
+
+.main h1 {
+  text-align: center;
+  color: #db8300;
+  margin: 1rem 0; /* הגדרת רווחים ברורים לכותרות */
+}
+.main h2 {
+  color: #db8300;
+  margin: 1rem 0; /* הגדרת רווחים ברורים לכותרות */
+}
+.contact_p,
+.about_p {
+  font-size: 1.4rem;
+}
+
+.details {
+  padding-left: 1rem;
+  font-family: cursive;
+  font-size: large;
+  text-align: center;
+}
+
+.fullname_d {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.fullName {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
