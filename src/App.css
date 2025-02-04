@@ -89,7 +89,6 @@ body,
 .leads-list {
   display: flex;
   flex-wrap: wrap;
-  font-family: "Lucida Sans";
   justify-content: center;
   gap: 1.5rem;
   margin: 0; /* ביטול רווחים חיצוניים */
@@ -101,11 +100,16 @@ body,
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: hwb(47 82% 2%);
+  background-color: #fffde0;
   border: 0.5px solid;
   padding: 1rem;
   margin: 0.5rem;
 }
+
+.lead p{
+  margin: 0.3rem;
+}
+
 .container {
   flex-grow: 1;
   width: 1024px;
