@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import "../assets/styles/CreateLead.css";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../assets/styles/CreateLead.css';
 
-function CreateLead({ addLead }) {
+
+function CreateLead() {
   const [newLead, setNewLead] = useState({
     firstName: "",
     lastName: "",
@@ -10,6 +12,7 @@ function CreateLead({ addLead }) {
   });
 
   const [msg, setMsg] = useState({ style: "", text: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,14 +21,13 @@ function CreateLead({ addLead }) {
       [name]: value,
     }));
   };
-
   const cleanString = (str) => {
     return str.trim().replace(/\s+/g, " ");
   };
-
+  
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const cleanedLead = {
       firstName: cleanString(newLead.firstName),
       lastName: cleanString(newLead.lastName),
@@ -54,12 +56,8 @@ function CreateLead({ addLead }) {
       return;
     }
 
-    addLead(cleanedLead); // הוספת הליד החדש לרשימה
-    setNewLead({ firstName: "", lastName: "", email: "", phoneNumber: "" }); // איפוס השדות
-    setMsg({
-      classText: "success",
-      text: "פנייה נשלחה",
-    });
+    // Go back to the main page
+    navigate("/");
   };
 
   return (

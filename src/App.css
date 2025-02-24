@@ -46,15 +46,47 @@ body,
   text-decoration: none;
   color: #ffffff;
   text-align: center;
-  width: 7rem;
+  width: 6rem;
   margin: 0.5rem auto; /* ממרכז את הכפתור */
   border-radius: 7px;
   display: block; /* מבטיח שייראה ככפתור מלא */
 }
 
+.view-button-new-lead {
+  background-color: #029722b8;
+  padding: 0.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  width: 6rem;
+  border-radius: 7px;
+  display: block; /* מבטיח שייראה ככפתור מלא */
+  margin-top: 1rem;
+  margin-right: 10rem;
+  margin-bottom: 2rem;
+}
+.edit-button {
+  background-color: #029722b8;
+  padding: 0.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  width: 6rem;
+  margin: 0.5rem auto; /* ממרכז את הכפתור */
+  border-radius: 7px;
+  display: block; /* מבטיח שייראה ככפתור מלא */
+}
+
+.btn-view-edit {
+  display: flex;
+  gap: 1rem;
+}
+
 .menu {
   display: flex;
-  gap: 3rem;
+  gap: 1rem;
   font-size: large;
   text-decoration: none;
   width: 20;
@@ -106,7 +138,7 @@ body,
   margin: 0.5rem;
 }
 
-.lead p{
+.lead p {
   margin: 0.3rem;
 }
 
@@ -150,4 +182,17 @@ body,
 .fullName {
   font-weight: bold;
   font-size: 1.3rem;
+}
+@media (max-width: 768px) {
+  form {
+    width: 90%;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  button {
+    font-size: 14px;
+  }
 }
