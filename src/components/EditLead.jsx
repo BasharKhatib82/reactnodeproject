@@ -14,25 +14,23 @@ function EditLead() {
 
   // Function to handle each field change
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setEditedLead((prevPost) => ({
       ...prevPost,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   // Function for saving changes
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Data saving will be processed here
     console.log("Updated Lead:", editedLead);
-
-    // After saving, redirect back to the main page
     navigate("/");
   };
 
   return (
     <div className="main">
+      <div className="create-lead">
       <h2>עדכון פנייה</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -58,7 +56,7 @@ function EditLead() {
         <div>
           <label>דואר אלקטרוני :</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={editedLead.email}
             onChange={handleChange}
@@ -75,8 +73,60 @@ function EditLead() {
             required
           />
         </div>
+        <div>
+          <label>תאריך לידה :</label>
+          <input
+            type="date"
+            name="birthDate"
+            value={editedLead.birthDate || ""}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+           <label>בחירת קורס :</label>
+          <select
+            name="inquiryType"
+            value={editedLead.inquiryType || ""}
+            onChange={handleChange}
+          >
+              <option value="">בחר קורס</option>
+              <option value="support">הנחיית קבוצות</option>
+              <option value="sales">מדאיך בכיר באומנות</option>
+              <option value="general">טיפול בבישול</option>
+          </select>
+        </div>
+        <div>
+          <label>אופן יצירת קשר מועדף :</label>
+          <div>
+            <input
+              type="radio"
+              name="preferredContact"
+              value="email"
+              checked={editedLead.preferredContact === "email"}
+              onChange={handleChange}
+            /> דוא"ל
+            <input
+              type="radio"
+              name="preferredContact"
+              value="phone"
+              checked={editedLead.preferredContact === "phone"}
+              onChange={handleChange}
+            /> טלפון
+          </div>
+        </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="subscribeNewsletter"
+              checked={editedLead.subscribeNewsletter || false}
+              onChange={handleChange}
+            /> הירשם לקבלת עדכונים במייל
+          </label>
+        </div>
         <button type="submit">עדכן</button>
       </form>
+      </div>
     </div>
   );
 }

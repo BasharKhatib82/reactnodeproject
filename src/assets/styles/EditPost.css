@@ -82,6 +82,26 @@ body {
  resize: none;
 }
 
+.create-lead label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.create-lead input,
+.create-lead select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.create-lead input[type="radio"],
+.create-lead input[type="checkbox"] {
+  width: auto;
+  margin-right: 5px;
+}
+
 /* Mobile style */
 @media (max-width: 768px) {
 form {
