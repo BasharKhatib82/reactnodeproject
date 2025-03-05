@@ -1,0 +1,58 @@
+
+
+
+.contact-details, 
+.working-hours, 
+.service-commitment, 
+.social-links, 
+.how-to-reach, 
+.customer-care {
+ 
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+
+}
+
+.contact-details h3, 
+.working-hours h3, 
+.service-commitment h3, 
+.social-links h3, 
+.how-to-reach h3, 
+.customer-care h3 {
+  color: #34495e;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+
+
+.service-commitment ul li {
+  font-size: 16px;
+  padding: 5px 0;
+  color: #444;
+}
+
+.contact-details a, 
+.social-links a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.contact-details a:hover, 
+.social-links a:hover {
+  color: #0056b3;
+}
+
+.social-links {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.social-links a {
+  margin: 0 10px;
+  font-size: 18px;
+}

@@ -1,0 +1,213 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.appClass {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1; /* מבטיח שהאזור המרכזי יתפרש על כל הגובה הנותר */
+  display: flex;
+  flex-direction: column; /* שמירה על פריסת טקסט נכונה */
+  direction: rtl; /* יישור מימין לשמאל */
+  background-color: rgb(244, 255, 207);
+  padding: 1rem; /* הוסף ריפוד אם תרצה */
+}
+
+.active-link {
+  color: rgb(252, 248, 0);
+  text-decoration: none;
+  padding: 0.5rem;
+  width: 7rem;
+  text-align: center;
+  background-color: #029722;
+  border-radius: 8px;
+}
+.inactive-link {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  padding: 0.5rem;
+  width: 7rem;
+  text-align: center;
+  background-color: #029722;
+  border-radius: 8px;
+}
+
+.view-button {
+  background-color: #029722b8;
+  padding: 0.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  width: 8rem;
+  margin: 0.5rem auto; /* ממרכז את הכפתור */
+  border-radius: 7px;
+  display: block; /* מבטיח שייראה ככפתור מלא */
+}
+
+
+.btn-for-manager {
+  display: flex;
+}
+.edit-button {
+  background-color: #029722b8;
+  padding: 0.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  width: 8rem;
+  margin: 0.5rem auto; /* ממרכז את הכפתור */
+  border-radius: 7px;
+  display: block; /* מבטיח שייראה ככפתור מלא */
+}
+
+.btn-view-edit {
+  display: flex;
+  gap: 1rem;
+}
+
+.menu {
+  display: flex;
+  gap: 1rem;
+  font-size: large;
+  text-decoration: none;
+  width: 20;
+  padding-right: 2rem;
+}
+
+.header,
+.footer {
+  background-color: rgb(255, 228, 140);
+  
+}
+
+.header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(43, 170, 0);
+}
+
+.footer {
+  background-color: rgb(255, 228, 140);
+  font-size: 1.2rem;
+  text-align: center;
+}
+.logo {
+  width: 100px;
+  padding-left: 3rem;
+}
+
+.leads-list,
+.users-list,
+.tasks-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0; /* ביטול רווחים חיצוניים */
+  padding: 0; /* ביטול רווחים פנימיים */
+}
+
+.lead,
+.user,
+.task
+ {
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fffde0;
+  border: 0.5px solid;
+  padding: 1rem;
+  margin: 0.5rem;
+}
+
+.lead .employee p {
+  margin: 0.3rem;
+}
+
+.container {
+  flex-grow: 1;
+  width: 1024px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; /* יישור נכון של תוכן */
+  justify-content: center; /* ממרכז את התוכן אנכית */
+  align-items: center; /* ממרכז את התוכן אופקית */
+}
+hr {
+  display: block !important;
+}
+
+.main h1 {
+  text-align: center;
+  color: #db8300;
+  margin: 1rem 0; /* הגדרת רווחים ברורים לכותרות */
+}
+.main h2 {
+  color: #db8300;
+  margin: 1rem 0; /* הגדרת רווחים ברורים לכותרות */
+}
+.contact_p,
+.about_p {
+  font-size: 1.4rem;
+}
+
+.details {
+  padding-left: 1rem;
+  font-family: cursive;
+  font-size: large;
+  text-align: center;
+}
+
+.fullname_d {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.fullName {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+@media (max-width: 768px) {
+  form {
+    width: 90%;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  button {
+    font-size: 14px;
+  }
+  .view-button-employee,
+  .view-button-new-lead,
+  .view-button-tasks {
+    font-size: 0.7rem;
+     align-items: center;
+  }
+  .task {
+    width: 50%;
+  }
+
+  .content {
+      max-width: 100%;
+  overflow: hidden;
+  }  
+.footer {
+  font-size: 80%;
+}
+  
+}

@@ -1,0 +1,18 @@
+.view-button-new-lead,
+.view-button-employee,
+.view-button-tasks,
+.view-button-task {
+  background-color: #029722b8;
+  padding: 0.7rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  width: 8rem;
+  border-radius: 7px;
+margin: 2rem;
+  
+}
+.buttons-top-main-page {
+  margin-bottom: 1.5rem;
+}
