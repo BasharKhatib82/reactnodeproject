@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-
-
+import { useNavigate } from "react-router-dom";
 
 function CreateTask() {
   const [newTask, setNewTask] = useState({
@@ -11,7 +9,7 @@ function CreateTask() {
     deadline: "",
   });
 
-  const [msg, setMsg] = useState({ style: "", text: "" });
+  const [msg, setMsg] = useState({ classText: "", text: "" });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,62 +19,36 @@ function CreateTask() {
       [name]: value,
     }));
   };
-  const cleanString = (str) => {
-    return str.trim().replace(/\s+/g, " ");
-  };
-  
-  // Handle form submission
-  const handleSubmit =  (e) => {
+
+  const cleanString = (str) =>
+    typeof str === "string" ? str.trim().replace(/\s+/g, " ") : str;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const cleanedTask = {
       title: cleanString(newTask.title),
       content: cleanString(newTask.content),
-      deadline: cleanString(newTask.deadline)
+      deadline: cleanString(newTask.deadline),
     };
 
-    if (
-      !cleanedTask.title ||
-      !cleanedTask.content ||
-      !cleanedTask.deadline
-    ) {
-      setMsg({
-        classText: "error",
-        text: "Please fill in all the required fields.",
-      });
+    if (Object.values(cleanedTask).some((value) => value === "")) {
+      setMsg({ classText: "error", text: "יש למלא את כל השדות החובה." });
       return;
     }
 
-    if (!cleanedTask.content.length > 0 ) {
-      setMsg({
-        classText: "error",
-        text: "The task must consume content.",
-      });
+    if (cleanedTask.content.length === 0) {
+      setMsg({ classText: "error", text: "על המשימה לכלול תוכן." });
       return;
     }
+
     try {
-      // שליחת נתונים לשרת
-      const response =  axios.post("http://localhost:8801/api/tasks/new", cleanedTask);
-  
-      // אם הבקשה הצליחה
-      setMsg({
-        classText: "success",
-        text: "המשימה נוצרה בהצלחה!",
-      });
-  
-     
-         // ניווט חזרה לדף משימות
-         setTimeout(() => {
-            navigate("/api/tasks");
-          }, 3000);
+      await axios.post("http://localhost:8801/api/tasks/new", cleanedTask);
+      setMsg({ classText: "success", text: "המשימה נוצרה בהצלחה!" });
+      setTimeout(() => navigate("/api/tasks"), 3000);
     } catch (error) {
-      // טיפול בשגיאות
       console.error("Error creating task:", error);
-      setMsg({
-        classText: "error",
-        text: "אירעה שגיאה בעת יצירת המשימה.",
-      });
+      setMsg({ classText: "error", text: "אירעה שגיאה בעת יצירת המשימה." });
     }
-
   };
 
   return (
@@ -85,36 +57,18 @@ function CreateTask() {
         <h2>משימה חדשה</h2>
         {msg.text && <p className={msg.classText}>{msg.text}</p>}
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>נושא משימה :</label>
-            <input
-              type="text"
-              name="title"
-              value={newTask.title}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>תוכן המשימה :</label>
-            <input
-              type="text"
-              name="content"
-              value={newTask.content}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>תאריך יעד :</label>
-            <input
-              type="text"
-              name="deadline"
-              value={newTask.deadline}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          {Object.keys(newTask).map((key) => (
+            <div key={key}>
+              <label>{key.replace("_", " ")} :</label>
+              <input
+                type="text"
+                name={key}
+                value={newTask[key]}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          ))}
           <button type="submit">יצירת פנייה</button>
         </form>
       </div>

@@ -29,7 +29,7 @@ function SingleLeadAdmin() {
       await axios.delete(`http://localhost:8801/api/leads/delete/${id}`);
       console.log(`הפנייה של ${lead.first_name} ${lead.last_name} נמחקה`);
       setIsModalOpen(false); // סגירת המודאל לאחר מחיקה
-      navigate("/api/leads"); // חזרה לדף הפניות
+      navigate("/api/users"); // חזרה לדף הפניות
     } catch (error) {
       console.error("Error deleting lead:", error);
     }

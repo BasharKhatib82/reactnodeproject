@@ -1,8 +1,15 @@
 const isAdmin = (req, res, next) => {
-  if (req.session.user && req.session.user.role === 'admin') {
-      return next();  // If the user is an administrator, move on to the next handler
-}
-  return res.status(403).send('You do not have permission to perform this operation.');
+  console.log("Checking admin:", req.session.user); // בדיקה אם יש מידע ב-Session
+
+  if (req.session.user && req.session.user.role === "admin") {
+    console.log("User is admin");
+    return next();
+  }
+
+  console.log("User does not have admin rights");
+  return res
+    .status(403)
+    .json({ error: "You do not have permission to perform this operation." });
 };
 
-module.exports = isAdmin; // ייצוא המודול לשימוש בקבצים אחרים
+module.exports = isAdmin;

@@ -7,7 +7,7 @@ function CreateUser() {
     employee_id: "",
     first_name: "",
     last_name: "",
-    age:"",
+    age: "",
     phone_number: "",
     email: "",
     role: "",
@@ -15,7 +15,7 @@ function CreateUser() {
     password: "",
   });
 
-  const [msg, setMsg] = useState({ style: "", text: "" });
+  const [msg, setMsg] = useState({ classText: "", text: "" });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,225 +25,115 @@ function CreateUser() {
       [name]: value,
     }));
   };
-  const cleanString = (str) => {
-    return str.trim().replace(/\s+/g, " ");
-  };
 
-  // Handle form submission
+  const cleanString = (str) =>
+    typeof str === "string" ? str.trim().replace(/\s+/g, " ") : str;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // ניקוי הנתונים
+
     const cleanedEmployee = {
       employee_id: cleanString(newEmployee.employee_id),
       first_name: cleanString(newEmployee.first_name),
       last_name: cleanString(newEmployee.last_name),
-      age: cleanString( parseInt(newEmployee.age, 18)),
+      age: parseInt(newEmployee.age, 10),
       phone_number: cleanString(newEmployee.phone_number),
       email: cleanString(newEmployee.email),
       role: cleanString(newEmployee.role),
       username: cleanString(newEmployee.username),
-      password: cleanString(newEmployee.password),
+      password: newEmployee.password ? cleanString(newEmployee.password) : null,
     };
-  
-    // בדיקת תקינות
+
     if (
-      !cleanedEmployee.employee_id ||
-      !cleanedEmployee.first_name ||
-      !cleanedEmployee.last_name ||
-      !cleanedEmployee.age ||
-      !cleanedEmployee.phone_number ||
-      !cleanedEmployee.email ||
-      !cleanedEmployee.role ||
-      !cleanedEmployee.username ||
-      !cleanedEmployee.password
+      Object.values(cleanedEmployee).some(
+        (value) => value === "" || value === null
+      )
     ) {
-      setMsg({
-        classText: "error",
-        text: "Please fill in all the required fields.",
-      });
+      setMsg({ classText: "error", text: "יש למלא את כל השדות החובה." });
       return;
     }
-  
-    // בדיקת תקינות תעודת זהות*
+
     if (!/^\d{9}$/.test(cleanedEmployee.employee_id)) {
-    setMsg({
-      classText: "error",
-      text: "תעודת זהות חייבת להיות בדיוק 9 ספרות.",
-      });
-    return;
-    }
-
-    // בדיקת גיל (מינימום 18)
-    if (isNaN(cleanedEmployee.age) || cleanedEmployee.age < 18) {
-    setMsg({
-      classText: "error",
-      text: "ההרשמה מותרת לעובדים מעל גיל 18.",
-      });
-    return;
-    }
-
-    
-  // בדיקת מספר טלפון (10 ספרות)
-  if (!/^\d{10}$/.test(cleanedEmployee.phone_number)) {
-    setMsg({
-      classText: "error",
-      text: "מספר טלפון חייב להכיל בדיוק 10 ספרות.",
-    });
-    return;
-  }
-
-    if (cleanedEmployee.age < 20) {
       setMsg({
         classText: "error",
-        text: "ההרשמה לעובדים מעל גיל 18 ",
+        text: "תעודת זהות חייבת להכיל בדיוק 9 ספרות.",
       });
       return;
     }
 
-    //  בדיקת תקינות אימייל**
+    if (isNaN(cleanedEmployee.age) || cleanedEmployee.age < 18) {
+      setMsg({
+        classText: "error",
+        text: "ההרשמה מותרת רק לעובדים מעל גיל 18.",
+      });
+      return;
+    }
+
+    if (!/^\d{10}$/.test(cleanedEmployee.phone_number)) {
+      setMsg({
+        classText: "error",
+        text: "מספר טלפון חייב להכיל בדיוק 10 ספרות.",
+      });
+      return;
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(cleanedEmployee.email)) {
-    setMsg({
-      classText: "error",
-      text: "כתובת אימייל לא תקינה.",
-    });
-    return;
+      setMsg({ classText: "error", text: "כתובת האימייל אינה תקינה." });
+      return;
     }
-  
+
     try {
-      // שליחת נתונים לשרת
       const response = await fetch("http://localhost:8801/api/users/new", {
-        method: "POST", //  שליחת פרטי עובד 
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(cleanedEmployee),
       });
-  
+
       if (!response.ok) {
-        // אם השרת החזיר שגיאה
-setMsg({
-        classText: "error",
-        text: "The Phone Number length must be 10 Numbers",
-      });
+        setMsg({
+          classText: "error",
+          text: " אירעה שגיאה ביצירת המשתמש, עובד נמצה ,נסה שוב.",
+        });
+        return;
       }
-        setTimeout(() => {
-                // אם הבקשה הצליחה
-      setMsg({
-        classText: "success",
-        text: "העבוד נוצר בהצלחה!",
-        }, 3000);
-      });
-  
-      // ניווט לדף אחר לאחר הצלחה
-      navigate("/api/users");
+
+      setMsg({ classText: "success", text: "העובד נוצר בהצלחה!" });
+      setTimeout(() => navigate("/api/users"), 3000);
     } catch (error) {
-      // טיפול בשגיאות
       setMsg({
         classText: "error",
-        text: error.message || "An error occurred while creating the user.",
+        text: error.message || "שגיאה במהלך יצירת המשתמש.",
       });
     }
   };
-  
 
   return (
     <div className="main">
       <div className="create-lead">
-        <h2>עובד חדש</h2>
+        <h2>יצירת עובד חדש</h2>
         {msg.text && <p className={msg.classText}>{msg.text}</p>}
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>תעודת זהות :</label>
-            <input
-              type="text"
-              name="employee_id"
-              value={newEmployee.employee_id}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>שם פרטי :</label>
-            <input
-              type="text"
-              name="first_name"
-              value={newEmployee.first_name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>שם משפחה :</label>
-            <input
-              type="text"
-              name="last_name"
-              value={newEmployee.last_name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-               <div>
-            <label>גיל :</label>
-            <input
-              type="number"
-              name="age"
-              value={newEmployee.age}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>מספר טלפון :</label>
-            <input
-              type="text"
-              name="phone_number"
-              value={newEmployee.phone_number}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>דואר אלקטרוני :</label>
-            <input
-              type="text"
-              name="email"
-              value={newEmployee.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>תפקיד :</label>
-            <input
-              type="text"
-              name="role"
-              value={newEmployee.role}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>שם משתמש :</label>
-            <input
-              type="text"
-              name="username"
-              value={newEmployee.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>סיסמה :</label>
-            <input
-              type="password"
-              name="password"
-              value={newEmployee.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          {Object.keys(newEmployee).map((key) => (
+            <div key={key}>
+              <label>{key.replace("_", " ")} :</label>
+              <input
+                type={
+                  key === "password"
+                    ? "password"
+                    : key === "age"
+                    ? "number"
+                    : "text"
+                }
+                name={key}
+                value={newEmployee[key]}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          ))}
           <button type="submit">יצירת עובד חדש</button>
         </form>
       </div>

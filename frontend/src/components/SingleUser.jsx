@@ -25,11 +25,12 @@ function SingleUser() {
   };
 
   const handleDelete = async () => {
+    console.log("Attempting to delete user with ID:", id);
     try {
       await axios.delete(`http://localhost:8801/api/users/delete/${id}`);
       console.log(`העובד "${user.first_name} ${user.last_name}" נמחק`);
-      setIsModalOpen(false); // סגירת המודאל לאחר מחיקה
-      navigate("/api/users"); // חזרה לדף העובדים
+      setIsModalOpen(false);
+      navigate("/api/users");
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -48,9 +49,9 @@ function SingleUser() {
             <p className="email">דואר אלקטרוני: {user.email}</p>
             <p className="role">תפקיד: {user.role}</p>
             <p className="username">שם משתמש: {user.username}</p>
-            
-            <button 
-              className="deleteUserBtn" 
+
+            <button
+              className="deleteUserBtn"
               onClick={() => setIsModalOpen(true)}
             >
               מחיקת עובד
@@ -64,11 +65,11 @@ function SingleUser() {
       )}
 
       {/* ✅ הצגת המודאל אם המשתמש לחץ על "מחיקה" */}
-      <DeleteModal 
-        isOpen={isModalOpen} 
-        user={user} 
-        onConfirm={handleDelete} 
-        onCancel={() => setIsModalOpen(false)} 
+      <DeleteModal
+        isOpen={isModalOpen}
+        user={user}
+        onConfirm={handleDelete}
+        onCancel={() => setIsModalOpen(false)}
       />
     </section>
   );
